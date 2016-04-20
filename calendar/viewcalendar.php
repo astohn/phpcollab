@@ -734,10 +734,18 @@ if ($type == "monthPreview")
 
                 if ($listTasks->tas_status[$h] == "3" || $listTasks->tas_status[$h] == "2")
                 {
-                    if ($listTasks->tas_start_date[$h] == $dateLink && $listTasks->tas_start_date[$h] != $listTasks->tas_due_date[$h])
-                    {
+                    // If the task has a start date that matches the current day, and has a due date that is > current date then add (start date)
+                    if ($listTasks->tas_start_date[$h] == $dateLink && $listTasks->tas_due_date[$h] !== "--") {
                         echo "<img src=\"../themes/".THEME."/gfx_priority/".$idPriority.".gif\" alt='".$strings["priority"].": ".$priority[$idPriority]."' /> <b>".$strings["task"]."</b>: ";
-                        echo "<a href='../tasks/viewtask.php?id=".$listTasks->tas_id[$h]."' class='calendar-results-start-date'>".$listTasks->tas_name[$h]."</a><br /><br />";
+                        echo "<a href='../tasks/viewtask.php?id=".$listTasks->tas_id[$h]."' class='calendar-results-start-date'>".$listTasks->tas_name[$h]."</a> (".$strings["start_date"].")<br /><br />";
+
+                    } else {
+                        if ($listTasks->tas_start_date[$h] == $dateLink && $listTasks->tas_start_date[$h] != $listTasks->tas_due_date[$h])
+                        {
+                            echo "<img src=\"../themes/".THEME."/gfx_priority/".$idPriority.".gif\" alt='".$strings["priority"].": ".$priority[$idPriority]."' /> <b>".$strings["task"]."</b>: ";
+                            echo "<a href='../tasks/viewtask.php?id=".$listTasks->tas_id[$h]."' class='calendar-results-start-date'>".$listTasks->tas_name[$h]."</a><br /><br />";
+                        }
+
                     }
 
                     if ($listTasks->tas_due_date[$h] == $dateLink && $listTasks->tas_start_date[$h] != $listTasks->tas_due_date[$h])
@@ -751,7 +759,7 @@ if ($type == "monthPreview")
                         else
                         {
                             echo "<img src=\"../themes/".THEME."/gfx_priority/".$idPriority.".gif\" alt='".$strings["priority"].": ".$priority[$idPriority]."' /> <b>".$strings["task"]."</b>: ";
-                            echo "<a href='../tasks/viewtask.php?id=".$listTasks->tas_id[$h]."' class='calendar-results-due-date'>".$listTasks->tas_name[$h]."</a><br /><br />";
+                            echo "<a href='../tasks/viewtask.php?id=".$listTasks->tas_id[$h]."' class='calendar-results-due-date'>".$listTasks->tas_name[$h]."</a> (".$strings["due_date"].")<br /><br />";
                         }
                     }
 
